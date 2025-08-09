@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مخفف‌های سیستم‌های مدیریت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+	* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    font-family: 'Vazirmatn', sans-serif;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.slide {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #f5f8ff;
+    color: #002054;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    padding: 2vh 4vw 1vh;
+    position: relative;
+}
+.title {
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 700;
+    color: #002054;
+    position: relative;
+    display: inline-block;
+}
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+    width: clamp(40px, 6vw, 80px);
+    height: clamp(2px, 0.3vw, 4px);
+    background-color: #4dabf7;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1vh 4vw 2vh;
+    min-height: 0;
+}
+.intro-text {
+    font-size: clamp(14px, 1.5vw, 20px);
+    line-height: 1.4;
+    margin-bottom: clamp(10px, 1.5vh, 20px);
+    color: #002054;
+}
+.acronyms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(10px, 1.5vw, 25px);
+    flex-grow: 1;
+    min-height: 0;
+}
+.acronym-card {
+    background-color: white;
+    border-radius: clamp(8px, 1vw, 12px);
+    padding: clamp(10px, 1.5vw, 20px);
+    box-shadow: 0 4px 12px rgba(0, 32, 84, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+}
+.acronym-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 32, 84, 0.15);
+}
+.acronym-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #4dabf7;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+.acronym-card:hover::before {
+    transform: scaleY(1);
+}
+.acronym-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: clamp(8px, 1vw, 15px);
+}
+.acronym-icon {
+    width: clamp(40px, 5vw, 60px);
+    height: clamp(40px, 5vw, 60px);
+    background-color: rgba(77, 171, 247, 0.15);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: clamp(10px, 1vw, 15px);
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+}
+.acronym-card:hover .acronym-icon {
+    background-color: rgba(77, 171, 247, 0.25);
+}
+.acronym-icon i {
+    font-size: clamp(18px, 2vw, 28px);
+    color: #4dabf7;
+}
+.acronym-title {
+    font-size: clamp(16px, 2vw, 26px);
+    font-weight: 700;
+    color: #002054;
+}
+.acronym-subtitle {
+    font-size: clamp(10px, 0.9vw, 16px);
+    color: #666;
+    margin-top: 2px;
+}
+.acronym-desc {
+    font-size: clamp(12px, 1.1vw, 18px);
+    line-height: 1.4;
+    color: #444;
+    flex-grow: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.acronym-example {
+    margin-top: clamp(8px, 1vw, 15px);
+    background-color: rgba(77, 171, 247, 0.08);
+    border-right: 3px solid #4dabf7;
+    padding: clamp(8px, 1vw, 12px) clamp(10px, 1.2vw, 15px);
+    border-radius: 0 8px 8px 0;
+    font-size: clamp(10px, 0.9vw, 16px);
+    color: #555;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.example-label {
+    font-weight: 500;
+    color: #002054;
+    margin-bottom: 3px;
+}
+.highlight {
+    color: #4dabf7;
+    font-weight: 500;
+}
+.logo-container {
+    position: absolute;
+    top: clamp(10px, 1.5vh, 20px);
+    left: clamp(20px, 4vw, 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo {
+    width: clamp(30px, 4vw, 50px);
+    height: clamp(30px, 4vw, 50px);
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 32, 84, 0.2);
+    overflow: hidden;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.logo-name {
+    margin-top: 3px;
+    font-size: clamp(8px, 1vw, 14px);
+    font-weight: 500;
+    color: #002054;
+    text-align: center;
+    line-height: 1.2;
+}
+.background-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(77, 171, 247, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: -1;
+}
+
+/* برای اندازه‌های کوچکتر */
+@media (max-width: 768px) {
+    .acronyms-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .acronym-desc {
+        -webkit-line-clamp: 4;
+    }
+    .acronym-example {
+        -webkit-line-clamp: 3;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="background-pattern"></div>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://imgur.com/9k6VVDF.png" alt="Vahdat Nori Logo">
+            </div>
+            <div class="logo-name">Vahdat Nori<br>09197494596</div>
+        </div>
+        <div class="header">
+            <h1 class="title">مخفف‌های سیستم‌های مدیریت</h1>
+        </div>
+        <div class="content">
+            <p class="intro-text">
+                سیستم‌های مدیریت تعمیرات و نگهداری با استفاده از نرم‌افزار و فناوری‌های پیشرفته، بهینه‌سازی عملیات و افزایش قابلیت اطمینان تجهیزات را ممکن می‌سازند.
+            </p>
+            
+            <div class="acronyms-grid">
+                <div class="acronym-card">
+                    <div class="acronym-header">
+                        <div class="acronym-icon">
+                            <i class="fas fa-laptop-medical"></i>
+                        </div>
+                        <div>
+                            <div class="acronym-title">CMMS</div>
+                            <div class="acronym-subtitle">Computerized Maintenance Management System</div>
+                        </div>
+                    </div>
+                    <div class="acronym-desc">
+                        نرم‌افزاری برای مدیریت عملیات تعمیرات شامل ردیابی دارایی‌ها، دستورکارها، برنامه‌ریزی نگهداری پیشگیرانه و گزارش‌دهی
+                    </div>
+                    <div class="acronym-example">
+                        <div class="example-label">مثال کاربردی:</div>
+                        برنامه‌ریزی بازرسی‌های هفتگی HVAC، پیگیری هزینه‌های تعمیر و مدیریت موجودی قطعات یدکی
+                    </div>
+                </div>
+                
+                <div class="acronym-card">
+                    <div class="acronym-header">
+                        <div class="acronym-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div>
+                            <div class="acronym-title">EAM</div>
+                            <div class="acronym-subtitle">Enterprise Asset Management</div>
+                        </div>
+                    </div>
+                    <div class="acronym-desc">
+                        سیستم‌های گسترده‌تر از CMMS که کل چرخه عمر دارایی‌های فیزیکی را در سراسر بخش‌های مختلف سازمان مدیریت می‌کنند
+                    </div>
+                    <div class="acronym-example">
+                        <div class="example-label">مثال کاربردی:</div>
+                        مدیریت دارایی‌های سرمایه‌ای از خرید تا اسقاط در چندین تأسیسات مختلف
+                    </div>
+                </div>
+                
+                <div class="acronym-card">
+                    <div class="acronym-header">
+                        <div class="acronym-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div>
+                            <div class="acronym-title">SCADA</div>
+                            <div class="acronym-subtitle">Supervisory Control and Data Acquisition</div>
+                        </div>
+                    </div>
+                    <div class="acronym-desc">
+                        سیستم‌هایی برای نظارت و کنترل تجهیزات صنعتی از طریق گردآوری داده‌ها و رابط‌های انسان-ماشین (HMI)
+                    </div>
+                    <div class="acronym-example">
+                        <div class="example-label">مثال کاربردی:</div>
+                        نظارت بلادرنگ بر پمپ‌ها، کمپرسورها و سیستم‌های خدماتی در کارخانه تولیدی
+                    </div>
+                </div>
+                
+                <div class="acronym-card">
+                    <div class="acronym-header">
+                        <div class="acronym-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div>
+                            <div class="acronym-title">IIoT</div>
+                            <div class="acronym-subtitle">Industrial Internet of Things</div>
+                        </div>
+                    </div>
+                    <div class="acronym-desc">
+                        شبکه‌ای از سنسورها و دستگاه‌ها که داده‌ها را از تجهیزات صنعتی جمع‌آوری و به اشتراک می‌گذارند برای تحلیل و اتوماسیون
+                    </div>
+                    <div class="acronym-example">
+                        <div class="example-label">مثال کاربردی:</div>
+                        استفاده از سنسورهای لرزش برای فعال کردن هشدارهای نگهداری پیش‌بینانه در تجهیزات دوار
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

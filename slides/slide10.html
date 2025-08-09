@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماژول‌های اصلی</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    font-family: 'Vazirmatn', sans-serif;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f8ff;
+}
+.slide {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f8ff 0%, #e1eeff 100%);
+    color: #002054;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    padding: clamp(20px, 3vh, 40px) clamp(20px, 5vw, 70px) clamp(10px, 1.5vh, 20px);
+    position: relative;
+}
+.title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: #002054;
+    position: relative;
+    display: inline-block;
+    margin-bottom: clamp(5px, 1vh, 10px);
+}
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+    width: clamp(50px, 8vw, 100px);
+    height: clamp(3px, 0.5vw, 5px);
+    background: linear-gradient(90deg, #4dabf7, #002054);
+    border-radius: 3px;
+}
+.content {
+    display: flex;
+    flex-grow: 1;
+    padding: clamp(10px, 1.5vh, 20px) clamp(20px, 5vw, 70px) clamp(20px, 3vh, 40px);
+    min-height: 0;
+}
+.modules-table {
+    flex: 1.3;
+    overflow: auto;
+    min-height: 0;
+}
+.modules-table::-webkit-scrollbar {
+    width: 8px;
+}
+.modules-table::-webkit-scrollbar-track {
+    background: rgba(77, 171, 247, 0.1);
+    border-radius: 10px;
+}
+.modules-table::-webkit-scrollbar-thumb {
+    background: rgba(77, 171, 247, 0.3);
+    border-radius: 10px;
+}
+.modules-table::-webkit-scrollbar-thumb:hover {
+    background: rgba(77, 171, 247, 0.5);
+}
+.image-content {
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: clamp(15px, 2vw, 30px);
+    min-height: 0;
+}
+.image-content img {
+    max-width: 100%;
+    max-height: clamp(200px, 45vh, 380px);
+    border-radius: clamp(8px, 1vw, 12px);
+    box-shadow: 0 clamp(5px, 1vw, 10px) clamp(20px, 2vw, 30px) rgba(0, 32, 84, 0.15);
+    transition: all 0.3s ease;
+    object-fit: contain;
+}
+.image-content img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 clamp(8px, 1.5vw, 15px) clamp(25px, 2.5vw, 35px) rgba(0, 32, 84, 0.2);
+}
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: white;
+    border-radius: clamp(8px, 1vw, 12px);
+    overflow: hidden;
+    box-shadow: 0 clamp(3px, 0.5vw, 5px) clamp(10px, 1vw, 15px) rgba(0, 32, 84, 0.08);
+}
+th {
+    background: linear-gradient(135deg, #4dabf7 0%, #2e7cd6 100%);
+    color: white;
+    text-align: right;
+    padding: clamp(10px, 1.5vw, 15px);
+    font-size: clamp(14px, 1.8vw, 20px);
+    font-weight: 600;
+}
+td {
+    padding: clamp(10px, 1.5vw, 15px);
+    text-align: right;
+    font-size: clamp(12px, 1.5vw, 18px);
+    border-bottom: 1px solid #eaeaea;
+}
+tr:last-child td {
+    border-bottom: none;
+}
+tr:nth-child(even) {
+    background-color: rgba(77, 171, 247, 0.05);
+}
+tr {
+    transition: all 0.2s ease;
+}
+tr:hover {
+    background-color: rgba(77, 171, 247, 0.1);
+}
+.module-icon {
+    color: #4dabf7;
+    margin-left: clamp(6px, 0.8vw, 8px);
+    vertical-align: middle;
+    font-size: clamp(16px, 1.5vw, 20px);
+}
+.highlight {
+    color: #4dabf7;
+    font-weight: 600;
+}
+.module-name {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+.module-features {
+    line-height: 1.4;
+}
+.module-standards {
+    font-weight: 600;
+}
+.note {
+    margin-top: clamp(10px, 1.5vh, 20px);
+    font-size: clamp(12px, 1.2vw, 16px);
+    color: #666;
+    font-style: italic;
+    text-align: center;
+}
+.logo-container {
+    position: absolute;
+    top: clamp(10px, 1.5vh, 20px);
+    left: clamp(20px, 4vw, 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo {
+    width: clamp(30px, 4vw, 50px);
+    height: clamp(30px, 4vw, 50px);
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 32, 84, 0.2);
+    overflow: hidden;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.logo-name {
+    margin-top: 3px;
+    font-size: clamp(8px, 1vw, 14px);
+    font-weight: 500;
+    color: #002054;
+    text-align: center;
+    line-height: 1.2;
+}
+.background-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(77, 171, 247, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: -1;
+}
+.image-caption {
+    margin-top: clamp(8px, 1vh, 15px);
+    font-size: clamp(12px, 1.2vw, 16px);
+    color: #666;
+    text-align: center;
+}
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(4px, 0.6vw, 6px);
+    margin-top: clamp(6px, 0.8vw, 8px);
+}
+.tag {
+    background-color: rgba(77, 171, 247, 0.1);
+    color: #002054;
+    padding: clamp(2px, 0.4vw, 3px) clamp(5px, 0.8vw, 8px);
+    border-radius: 20px;
+    font-size: clamp(10px, 0.9vw, 13px);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.tag:hover {
+    background-color: rgba(77, 171, 247, 0.2);
+    transform: scale(1.05);
+}
+
+/* برای اندازه‌های کوچکتر */
+@media (max-width: 1024px) {
+    .content {
+        flex-direction: column;
+    }
+    .modules-table {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .image-content {
+        width: 100%;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    th, td {
+        padding: 8px;
+        font-size: 14px;
+    }
+    .module-icon {
+        font-size: 14px;
+    }
+    .tag {
+        font-size: 11px;
+        padding: 2px 6px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="background-pattern"></div>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://imgur.com/9k6VVDF.png" alt="Vahdat Nori Logo">
+            </div>
+            <div class="logo-name">Vahdat Nori<br>09197494596</div>
+        </div>
+        <div class="header">
+            <h1 class="title">ماژول‌های اصلی</h1>
+        </div>
+        <div class="content">
+            <div class="modules-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="25%">ماژول</th>
+                            <th width="50%">قابلیت‌های کلیدی</th>
+                            <th width="25%">استانداردها</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="module-name">
+                                    <i class="fas fa-box module-icon"></i>
+                                    مدیریت دارایی
+                                </div>
+                            </td>
+                            <td class="module-features">
+                                ساختار درختی مکان‌ها/تجهیزات، کدگذاری <span class="highlight">ISO 14224</span>، محاسبه <span class="highlight">LCC</span>
+                                <div class="tag-container">
+                                    <div class="tag">ردیابی دارایی</div>
+                                    <div class="tag">سلسله مراتبی</div>
+                                    <div class="tag">هزینه چرخه عمر</div>
+                                </div>
+                            </td>
+                            <td class="module-standards">
+                                <div class="tag-container">
+                                    <div class="tag">ISO 55000</div>
+                                    <div class="tag">ISO 14224</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="module-name">
+                                    <i class="fas fa-tools module-icon"></i>
+                                    نگهداری
+                                </div>
+                            </td>
+                            <td class="module-features">
+                                برنامه‌ریزی <span class="highlight">PM/CBM/PdM</span>، تخصیص خودکار دستورکارها، تحلیل <span class="highlight">MTBF/MTTR</span>
+                                <div class="tag-container">
+                                    <div class="tag">پیشگیرانه</div>
+                                    <div class="tag">پیش‌بینانه</div>
+                                    <div class="tag">مبتنی بر وضعیت</div>
+                                </div>
+                            </td>
+                            <td class="module-standards">
+                                <div class="tag-container">
+                                    <div class="tag">ISO 13306</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="module-name">
+                                    <i class="fas fa-warehouse module-icon"></i>
+                                    انبار و قطعات
+                                </div>
+                            </td>
+                            <td class="module-features">
+                                کدگذاری <span class="highlight">ISO 8000</span>، مدیریت موجودی، پیوند به تجهیزات/PM
+                                <div class="tag-container">
+                                    <div class="tag">مدیریت موجودی</div>
+                                    <div class="tag">کنترل قطعات</div>
+                                    <div class="tag">زنجیره تأمین</div>
+                                </div>
+                            </td>
+                            <td class="module-standards">
+                                <div class="tag-container">
+                                    <div class="tag">ISO 8000</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="module-name">
+                                    <i class="fas fa-users module-icon"></i>
+                                    پرسنل
+                                </div>
+                            </td>
+                            <td class="module-features">
+                                ثبت تخصص‌ها/گواهی‌ها، تخصیص وظایف، پیگیری عملکرد
+                                <div class="tag-container">
+                                    <div class="tag">مدیریت نیروی انسانی</div>
+                                    <div class="tag">مهارت‌ها</div>
+                                    <div class="tag">گواهینامه‌ها</div>
+                                </div>
+                            </td>
+                            <td class="module-standards">
+                                <div class="tag-container">
+                                    <div class="tag">ISO 10015</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="module-name">
+                                    <i class="fas fa-bolt module-icon"></i>
+                                    انرژی
+                                </div>
+                            </td>
+                            <td class="module-features">
+                                تحلیل مصرف/هزینه، شناسایی تجهیزات پرمصرف، یکپارچه‌سازی با کنتورهای هوشمند
+                                <div class="tag-container">
+                                    <div class="tag">پایش مصرف</div>
+                                    <div class="tag">بهینه‌سازی</div>
+                                    <div class="tag">صرفه‌جویی</div>
+                                </div>
+                            </td>
+                            <td class="module-standards">
+                                <div class="tag-container">
+                                    <div class="tag">ISO 50001</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="module-name">
+                                    <i class="fas fa-hard-hat module-icon"></i>
+                                    ایمنی (HSE)
+                                </div>
+                            </td>
+                            <td class="module-features">
+                                ثبت حوادث، تحلیل ریسک، انطباق با <span class="highlight">OSHA/ISO 45001</span>
+                                <div class="tag-container">
+                                    <div class="tag">ایمنی</div>
+                                    <div class="tag">بهداشت</div>
+                                    <div class="tag">محیط زیست</div>
+                                </div>
+                            </td>
+                            <td class="module-standards">
+                                <div class="tag-container">
+                                    <div class="tag">ISO 45001</div>
+                                    <div class="tag">OSHA</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="module-name">
+                                    <i class="fas fa-graduation-cap module-icon"></i>
+                                    آموزش
+                                </div>
+                            </td>
+                            <td class="module-features">
+                                پیوند آموزش به عملکرد، هشدار تمدید گواهی‌ها
+                                <div class="tag-container">
+                                    <div class="tag">آموزش</div>
+                                    <div class="tag">گواهینامه</div>
+                                    <div class="tag">مهارت‌آموزی</div>
+                                </div>
+                            </td>
+                            <td class="module-standards">
+                                <div class="tag-container">
+                                    <div class="tag">ISO 10015</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="module-name">
+                                    <i class="fas fa-chart-bar module-icon"></i>
+                                    گزارش‌دهی
+                                </div>
+                            </td>
+                            <td class="module-features">
+                                داشبوردهای تعاملی، <span class="highlight">KPI</span>های پیشرفته، خروجی <span class="highlight">PDF/Excel</span>
+                                <div class="tag-container">
+                                    <div class="tag">داشبورد</div>
+                                    <div class="tag">گزارش‌گیری</div>
+                                    <div class="tag">تحلیل داده</div>
+                                </div>
+                            </td>
+                            <td class="module-standards">
+                                <div class="tag-container">
+                                    <div class="tag">-</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="image-content">
+                <img src="https://sfile.chatglm.cn/images-ppt/87d78a60f668.jpeg" alt="ماژول‌های مدیریت دارایی‌های سازمانی">
+                <div class="image-caption">ماژول‌های کلیدی مدیریت دارایی‌های سازمانی (EAM)</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

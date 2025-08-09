@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اصطلاحات و مخفف‌های تعمیرات و نگهداری</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    font-family: 'Vazirmatn', sans-serif;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.slide {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #f5f8ff;
+    color: #002054;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    padding: 3vw 5vw 1vw;
+    position: relative;
+}
+.title {
+    font-size: 3vw;
+    font-weight: 700;
+    color: #002054;
+    position: relative;
+    display: inline-block;
+}
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+    width: 80px;
+    height: 4px;
+    background-color: #4dabf7;
+}
+.content {
+    display: flex;
+    flex-grow: 1;
+    padding: 1.5vw 5vw 3vw;
+}
+.left-content {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+}
+.right-content {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.intro-text {
+    font-size: 1.5vw;
+    line-height: 1.6;
+    margin-bottom: 2vw;
+    color: #002054;
+}
+.importance-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1.8vw;
+    margin-bottom: 1.5vw;
+    box-shadow: 0 4px 12px rgba(0, 32, 84, 0.1);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.importance-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 32, 84, 0.15);
+}
+.importance-icon {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(77, 171, 247, 0.15);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+}
+.importance-card:hover .importance-icon {
+    background-color: rgba(77, 171, 247, 0.25);
+}
+.importance-icon i {
+    font-size: 28px;
+    color: #4dabf7;
+}
+.importance-content {
+    flex-grow: 1;
+}
+.importance-title {
+    font-size: 1.5vw;
+    font-weight: 600;
+    color: #002054;
+    margin-bottom: 8px;
+}
+.importance-desc {
+    font-size: 1.2vw;
+    color: #555;
+}
+.highlight {
+    color: #4dabf7;
+    font-weight: 500;
+}
+.acronym-cloud {
+    background-color: white;
+    border-radius: 12px;
+    padding: 2vw;
+    box-shadow: 0 4px 12px rgba(0, 32, 84, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.acronym-cloud:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 32, 84, 0.15);
+}
+.acronym-title {
+    font-size: 1.5vw;
+    font-weight: 600;
+    color: #002054;
+    margin-bottom: 1.5vw;
+}
+.acronym-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+.acronym-item {
+    background-color: rgba(77, 171, 247, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1.2vw;
+    font-weight: 500;
+    color: #002054;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.acronym-item:hover {
+    background-color: rgba(77, 171, 247, 0.2);
+    transform: scale(1.05);
+}
+.logo-container {
+    position: absolute;
+    top: 1.5vw;
+    left: 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 32, 84, 0.2);
+    overflow: hidden;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.logo-name {
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #002054;
+}
+.background-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(77, 171, 247, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: -1;
+}
+
+/* برای اندازه‌های کوچکتر */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+    .title {
+        font-size: 5vw;
+    }
+    .intro-text {
+        font-size: 3vw;
+    }
+    .importance-title {
+        font-size: 3vw;
+    }
+    .importance-desc {
+        font-size: 2.5vw;
+    }
+    .acronym-title {
+        font-size: 3vw;
+    }
+    .acronym-item {
+        font-size: 2.5vw;
+    }
+    .acronym-cloud {
+        max-width: 100%;
+        margin-top: 2vw;
+    }
+    .header {
+        padding: 3vw 3vw 1vw;
+    }
+    .content {
+        padding: 1.5vw 3vw 3vw;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="background-pattern"></div>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://imgur.com/9k6VVDF.png" alt="Vahdat Nori Logo">
+            </div>
+            <div class="logo-name">Vahdat Nori<br>09197494596</div>
+        </div>
+        <div class="header">
+            <h1 class="title">اصطلاحات و مخفف‌های تعمیرات و نگهداری</h1>
+        </div>
+        <div class="content">
+            <div class="left-content">
+                <p class="intro-text">
+                    در صنعت تعمیرات و نگهداری، اصطلاحات و مخفف‌های متعددی وجود دارند که درک صحیح آن‌ها برای <span class="highlight">ارتباط مؤثر</span>، <span class="highlight">بهبود بهره‌وری</span> و <span class="highlight">انطباق با استانداردها</span> ضروری است.
+                </p>
+                
+                <div class="importance-card">
+                    <div class="importance-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="importance-content">
+                        <div class="importance-title">وضوح و یکپارچگی ارتباطی</div>
+                        <div class="importance-desc">همه افراد از تکنسین‌ها تا مدیران باید به یک زبان صحبت کنند</div>
+                    </div>
+                </div>
+                
+                <div class="importance-card">
+                    <div class="importance-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="importance-content">
+                        <div class="importance-title">کارایی و بهره‌وری</div>
+                        <div class="importance-desc">ارتباط وضعیت تعمیرات یا اهداف قابلیت اطمینان با اصطلاحات استاندارد سریع‌تر است</div>
+                    </div>
+                </div>
+                
+                <div class="importance-card">
+                    <div class="importance-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="importance-content">
+                        <div class="importance-title">استانداردسازی</div>
+                        <div class="importance-desc">مخفف‌ها اغلب با بهترین شیوه‌های جهانی (ISO، SMRP، NFPA) همسو هستند</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-content">
+                <div class="acronym-cloud">
+                    <div class="acronym-title">مخفف‌های کلیدی</div>
+                    <div class="acronym-grid">
+                        <div class="acronym-item">CMMS</div>
+                        <div class="acronym-item">EAM</div>
+                        <div class="acronym-item">PM</div>
+                        <div class="acronym-item">PdM</div>
+                        <div class="acronym-item">CM</div>
+                        <div class="acronym-item">TPM</div>
+                        <div class="acronym-item">RCM</div>
+                        <div class="acronym-item">OEE</div>
+                        <div class="acronym-item">MTBF</div>
+                        <div class="acronym-item">MTTR</div>
+                        <div class="acronym-item">RCA</div>
+                        <div class="acronym-item">FMEA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

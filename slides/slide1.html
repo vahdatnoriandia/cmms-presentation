@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طراحی نرم‌افزار جامع تعمیرات و نگهداری صنعتی (CMMS/EAM)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	
+    <style>
+	
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    font-family: 'Vazirmatn', sans-serif;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.slide {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #002054 0%, #0039a6 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+.logo-container {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+.logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.logo-name {
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 120px;
+    z-index: 5;
+}
+.title {
+    font-size: 5vw; /* تغییر به viewport unit برای واکنش‌گرایی */
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 30px;
+    text-align: center;
+    background: linear-gradient(90deg, #ffffff, #a9c6ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.subtitle {
+    font-size: 2vw; /* تغییر به viewport unit برای واکنش‌گرایی */
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    color: #e0e9ff;
+    max-width: 80%;
+    margin: 0 auto;
+}
+.accent-line {
+    width: 180px;
+    height: 6px;
+    background: linear-gradient(90deg, #4dabf7, #a9c6ff);
+    margin: 30px auto;
+    border-radius: 3px;
+}
+.background-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.1;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="white" stroke-width="1"/></svg>');
+    background-size: 50px 50px;
+}
+.floating-circles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    overflow: hidden;
+}
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+}
+.circle-1 {
+    width: 300px;
+    height: 300px;
+    top: -150px;
+    right: -100px;
+}
+.circle-2 {
+    width: 200px;
+    height: 200px;
+    bottom: -80px;
+    left: -50px;
+}
+.circle-3 {
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    right: 10%;
+}
+.highlight-box {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+.highlight-icon {
+    font-size: 24px;
+    color: #4dabf7;
+    margin-left: 15px;
+}
+.highlight-text {
+    font-size: 18px;
+    font-weight: 500;
+}
+.key-features {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 10;
+}
+.key-feature {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+.key-feature:hover {
+    transform: translateX(5px);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+.key-feature i {
+    color: #4dabf7;
+    margin-left: 10px;
+    font-size: 18px;
+}
+.key-feature-text {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* برای اندازه‌های کوچکتر */
+@media (max-width: 768px) {
+    .content {
+        padding: 0 20px;
+    }
+    .title {
+        font-size: 8vw;
+    }
+    .subtitle {
+        font-size: 4vw;
+    }
+    .key-features {
+        bottom: 20px;
+        left: 20px;
+    }
+    .highlight-box {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="background-elements"></div>
+        <div class="floating-circles">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+        </div>
+        
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://i.imgur.com/9k6VVDF.png" alt="Vahdat Nori Logo">
+            </div>
+            <div class="logo-name">Vahdat Nori<br>09197494596</div>
+        </div>
+        
+        <div class="content">
+            <h1 class="title">تعمیرات و نگهداری صنعتی<br><span style="font-size: 60px;">(CMMS/EAM)</span></h1>
+            <div class="accent-line"></div>
+            <p class="subtitle">راهکار استاندارد برای صنایع کوچک و بزرگ با پشتیبانی از انرژی، ایمنی و آموزش</p>
+        </div>
+        
+        <div class="key-features">
+            <div class="key-feature">
+                <i class="fas fa-cogs"></i>
+                <div class="key-feature-text">انعطاف‌پذیری و مقیاس‌پذیری</div>
+            </div>
+            <div class="key-feature">
+                <i class="fas fa-chart-line"></i>
+                <div class="key-feature-text">کاهش ۲۰–۴۰٪ هزینه‌های نگهداری</div>
+            </div>
+            <div class="key-feature">
+                <i class="fas fa-shield-alt"></i>
+                <div class="key-feature-text">انطباق با استانداردهای بین‌المللی</div>
+            </div>
+        </div>
+        
+        <div class="highlight-box">
+            <i class="fas fa-bolt highlight-icon"></i>
+            <div class="highlight-text">بهینه‌سازی مصرف انرژی</div>
+        </div>
+    </div>
+</body>
+</html>

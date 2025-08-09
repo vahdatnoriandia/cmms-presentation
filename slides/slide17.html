@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبوردهای حرفه‌ای نرم‌افزار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    font-family: 'Vazirmatn', sans-serif;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f8ff;
+}
+.slide {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f8ff 0%, #e1eeff 100%);
+    color: #002054;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    padding: clamp(20px, 3vh, 40px) clamp(20px, 5vw, 70px) clamp(10px, 1.5vh, 20px);
+    position: relative;
+}
+.title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: #002054;
+    position: relative;
+    display: inline-block;
+    margin-bottom: clamp(5px, 1vh, 10px);
+}
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+    width: clamp(50px, 8vw, 100px);
+    height: clamp(3px, 0.5vw, 5px);
+    background: linear-gradient(90deg, #4dabf7, #002054);
+    border-radius: 3px;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: clamp(10px, 1.5vh, 20px) clamp(20px, 5vw, 70px) clamp(20px, 3vh, 40px);
+    min-height: 0;
+}
+.intro-text {
+    font-size: clamp(14px, 1.5vw, 22px);
+    line-height: 1.6;
+    margin-bottom: clamp(12px, 1.5vh, 25px);
+    color: #002054;
+}
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(15px, 2vw, 25px);
+    flex-grow: 1;
+    min-height: 0;
+}
+.dashboard-card {
+    background-color: white;
+    border-radius: clamp(8px, 1vw, 12px);
+    padding: clamp(12px, 1.5vw, 20px);
+    box-shadow: 0 clamp(3px, 0.5vw, 5px) clamp(10px, 1vw, 15px) rgba(0, 32, 84, 0.08);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+}
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 clamp(5px, 0.8vw, 8px) clamp(15px, 1.5vw, 25px) rgba(0, 32, 84, 0.12);
+}
+.dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #4dabf7;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+.dashboard-card:hover::before {
+    transform: scaleY(1);
+}
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: clamp(10px, 1vw, 15px);
+}
+.dashboard-icon {
+    width: clamp(35px, 4vw, 50px);
+    height: clamp(35px, 4vw, 50px);
+    background-color: rgba(77, 171, 247, 0.15);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: clamp(10px, 1vw, 15px);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+.dashboard-card:hover .dashboard-icon {
+    background-color: rgba(77, 171, 247, 0.25);
+}
+.dashboard-icon i {
+    font-size: clamp(18px, 2vw, 24px);
+    color: #4dabf7;
+}
+.dashboard-title {
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 600;
+    color: #002054;
+}
+.dashboard-image-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: clamp(6px, 0.8vw, 10px) 0;
+    overflow: hidden;
+    border-radius: clamp(6px, 0.8vw, 8px);
+    background-color: rgba(77, 171, 247, 0.05);
+    padding: clamp(6px, 0.8vw, 10px);
+    min-height: 0;
+    position: relative;
+}
+.dashboard-image {
+    width: 100%;
+    height: 100%;
+    max-height: clamp(140px, 30vh, 220px);
+    border-radius: clamp(4px, 0.5vw, 4px);
+    box-shadow: 0 clamp(2px, 0.3vw, 2px) clamp(6px, 0.8vw, 8px) rgba(0, 32, 84, 0.1);
+    transition: all 0.3s ease;
+    object-fit: contain;
+}
+.dashboard-image:hover {
+    transform: scale(1.02);
+}
+.dashboard-features {
+    margin-top: clamp(10px, 1vw, 15px);
+}
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: clamp(6px, 0.8vw, 8px);
+    font-size: clamp(14px, 1.5vw, 18px);
+}
+.feature-item i {
+    color: #4dabf7;
+    margin-left: clamp(8px, 1vw, 10px);
+    font-size: clamp(12px, 1vw, 16px);
+    flex-shrink: 0;
+}
+.highlight {
+    color: #4dabf7;
+    font-weight: 600;
+}
+.logo-container {
+    position: absolute;
+    top: clamp(10px, 1.5vh, 20px);
+    left: clamp(20px, 4vw, 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo {
+    width: clamp(30px, 4vw, 50px);
+    height: clamp(30px, 4vw, 50px);
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 32, 84, 0.2);
+    overflow: hidden;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.logo-name {
+    margin-top: 3px;
+    font-size: clamp(8px, 1vw, 14px);
+    font-weight: 500;
+    color: #002054;
+    text-align: center;
+    line-height: 1.2;
+}
+.background-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(77, 171, 247, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: -1;
+}
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(5px, 0.8vw, 8px);
+    margin-top: clamp(6px, 0.8vw, 8px);
+}
+.tag {
+    background-color: rgba(77, 171, 247, 0.1);
+    color: #002054;
+    padding: clamp(3px, 0.5vw, 4px) clamp(6px, 1vw, 10px);
+    border-radius: 20px;
+    font-size: clamp(10px, 0.9vw, 14px);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.tag:hover {
+    background-color: rgba(77, 171, 247, 0.2);
+    transform: scale(1.05);
+}
+/* برای اندازه‌های کوچکتر */
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 768px) {
+    .dashboard-card {
+        padding: 12px;
+    }
+    .dashboard-icon {
+        width: 35px;
+        height: 35px;
+        margin-left: 10px;
+    }
+    .dashboard-icon i {
+        font-size: 16px;
+    }
+    .dashboard-title {
+        font-size: 16px;
+    }
+    .feature-item {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+    .feature-item i {
+        font-size: 12px;
+        margin-left: 8px;
+    }
+    .intro-text {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="background-pattern"></div>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://imgur.com/9k6VVDF.png" alt="Vahdat Nori Logo">
+            </div>
+            <div class="logo-name">Vahdat Nori<br>09197494596</div>
+        </div>
+        <div class="header">
+            <h1 class="title">داشبوردهای حرفه‌ای نرم‌افزار</h1>
+        </div>
+        <div class="content">
+            <p class="intro-text">
+                نرم‌افزار CMMS/EAM دارای داشبوردهای تعاملی و حرفه‌ای است که به مدیران امکان مشاهده و تحلیل داده‌های کلیدی را در زمان واقعی فراهم می‌کند.
+            </p>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="dashboard-header">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <div class="dashboard-title">داشبورد عملکرد کلی</div>
+                    </div>
+                    <div class="dashboard-image-container">
+                        <img src="https://sfile.chatglm.cn/images-ppt/e3ea2c4e9df6.jpg" alt="داشبورد عملکرد کلی" class="dashboard-image">
+                    </div>
+                    <div class="dashboard-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            نمایش <span class="highlight">OEE</span>، هزینه‌های نگهداری و نرخ حوادث
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            مقایسه عملکرد با دوره‌های زمانی قبلی
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-header">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="dashboard-title">تحلیل دستورکارها</div>
+                    </div>
+                    <div class="dashboard-image-container">
+                        <img src="https://sfile.chatglm.cn/images-ppt/12ab99dee07a.jpg" alt="تحلیل دستورکارها" class="dashboard-image">
+                    </div>
+                    <div class="dashboard-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            توزیع انواع دستورکارها (پیشگیرانه، اصلاحی)
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            تحلیل <span class="highlight">توقف‌های برنامه‌ریزی نشده</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-header">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="dashboard-title">مدیریت انرژی</div>
+                    </div>
+                    <div class="dashboard-image-container">
+                        <img src="https://sfile.chatglm.cn/images-ppt/11f5e1123e72.jpg" alt="مدیریت انرژی" class="dashboard-image">
+                    </div>
+                    <div class="dashboard-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            نمودار مصرف انرژی و شناسایی <span class="highlight">تجهیزات پرمصرف</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            تحلیل همبستگی انرژی و نگهداری
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-header">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="dashboard-title">دسترسی چندپلتفرمی</div>
+                    </div>
+                    <div class="dashboard-image-container">
+                        <img src="https://sfile.chatglm.cn/images-ppt/005b8cc14c3c.jpg" alt="دسترسی چندپلتفرمی" class="dashboard-image">
+                    </div>
+                    <div class="dashboard-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            دسترسی به داده‌ها از طریق <span class="highlight">وب، موبایل و تبلت</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            همگام‌سازی داده‌ها در تمام پلتفرم‌ها
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

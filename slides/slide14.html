@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چالش‌ها و راهکارها</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    font-family: 'Vazirmatn', sans-serif;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f8ff;
+}
+.slide {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f8ff 0%, #e1eeff 100%);
+    color: #002054;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    padding: clamp(20px, 3vh, 40px) clamp(20px, 5vw, 70px) clamp(10px, 1.5vh, 20px);
+    position: relative;
+}
+.title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: #002054;
+    position: relative;
+    display: inline-block;
+    margin-bottom: clamp(5px, 1vh, 10px);
+}
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+    width: clamp(50px, 8vw, 100px);
+    height: clamp(3px, 0.5vw, 5px);
+    background: linear-gradient(90deg, #4dabf7, #002054);
+    border-radius: 3px;
+}
+.content {
+    display: flex;
+    flex-grow: 1;
+    padding: clamp(10px, 1.5vh, 20px) clamp(20px, 5vw, 70px) clamp(20px, 3vh, 40px);
+    min-height: 0;
+}
+.challenges-table {
+    flex: 1.3;
+    overflow: auto;
+    min-height: 0;
+}
+.challenges-table::-webkit-scrollbar {
+    width: 8px;
+}
+.challenges-table::-webkit-scrollbar-track {
+    background: rgba(77, 171, 247, 0.1);
+    border-radius: 10px;
+}
+.challenges-table::-webkit-scrollbar-thumb {
+    background: rgba(77, 171, 247, 0.3);
+    border-radius: 10px;
+}
+.challenges-table::-webkit-scrollbar-thumb:hover {
+    background: rgba(77, 171, 247, 0.5);
+}
+.image-content {
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: clamp(15px, 2vw, 30px);
+    min-height: 0;
+}
+.image-content img {
+    max-width: 100%;
+    max-height: clamp(200px, 45vh, 380px);
+    border-radius: clamp(8px, 1vw, 12px);
+    box-shadow: 0 clamp(5px, 1vw, 10px) clamp(20px, 2vw, 30px) rgba(0, 32, 84, 0.15);
+    transition: all 0.3s ease;
+    object-fit: contain;
+}
+.image-content img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 clamp(8px, 1.5vw, 15px) clamp(25px, 2.5vw, 35px) rgba(0, 32, 84, 0.2);
+}
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: white;
+    border-radius: clamp(8px, 1vw, 12px);
+    overflow: hidden;
+    box-shadow: 0 clamp(3px, 0.5vw, 5px) clamp(10px, 1vw, 15px) rgba(0, 32, 84, 0.08);
+}
+th {
+    background: linear-gradient(135deg, #4dabf7 0%, #2e7cd6 100%);
+    color: white;
+    text-align: right;
+    padding: clamp(10px, 1.5vw, 15px);
+    font-size: clamp(14px, 1.8vw, 20px);
+    font-weight: 600;
+}
+td {
+    padding: clamp(10px, 1.5vw, 15px);
+    text-align: right;
+    font-size: clamp(12px, 1.5vw, 18px);
+    border-bottom: 1px solid #eaeaea;
+}
+tr:last-child td {
+    border-bottom: none;
+}
+tr:nth-child(even) {
+    background-color: rgba(77, 171, 247, 0.05);
+}
+tr {
+    transition: all 0.2s ease;
+}
+tr:hover {
+    background-color: rgba(77, 171, 247, 0.1);
+}
+.challenge-icon {
+    color: #d32f2f;
+    margin-left: clamp(6px, 0.8vw, 8px);
+    vertical-align: middle;
+    font-size: clamp(16px, 1.5vw, 20px);
+}
+.solution-icon {
+    color: #2e7d32;
+    margin-left: clamp(6px, 0.8vw, 8px);
+    vertical-align: middle;
+    font-size: clamp(16px, 1.5vw, 20px);
+}
+.highlight {
+    color: #4dabf7;
+    font-weight: 600;
+}
+.challenge-name {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+.solution-name {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+.note {
+    margin-top: clamp(10px, 1.5vh, 20px);
+    font-size: clamp(12px, 1.2vw, 16px);
+    color: #666;
+    font-style: italic;
+    text-align: center;
+}
+.logo-container {
+    position: absolute;
+    top: clamp(10px, 1.5vh, 20px);
+    left: clamp(20px, 4vw, 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo {
+    width: clamp(30px, 4vw, 50px);
+    height: clamp(30px, 4vw, 50px);
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 32, 84, 0.2);
+    overflow: hidden;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.logo-name {
+    margin-top: 3px;
+    font-size: clamp(8px, 1vw, 14px);
+    font-weight: 500;
+    color: #002054;
+    text-align: center;
+    line-height: 1.2;
+}
+.background-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(77, 171, 247, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: -1;
+}
+.image-caption {
+    margin-top: clamp(8px, 1vh, 15px);
+    font-size: clamp(12px, 1.2vw, 16px);
+    color: #666;
+    text-align: center;
+}
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(4px, 0.6vw, 6px);
+    margin-top: clamp(6px, 0.8vw, 8px);
+}
+.tag {
+    background-color: rgba(77, 171, 247, 0.1);
+    color: #002054;
+    padding: clamp(2px, 0.4vw, 3px) clamp(5px, 0.8vw, 8px);
+    border-radius: 20px;
+    font-size: clamp(10px, 0.9vw, 13px);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.tag:hover {
+    background-color: rgba(77, 171, 247, 0.2);
+    transform: scale(1.05);
+}
+.challenge-card {
+    position: relative;
+    overflow: hidden;
+}
+.challenge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #d32f2f;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+.challenge-card:hover::before {
+    transform: scaleY(1);
+}
+.solution-card {
+    position: relative;
+    overflow: hidden;
+}
+.solution-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #2e7d32;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+.solution-card:hover::before {
+    transform: scaleY(1);
+}
+
+/* برای اندازه‌های کوچکتر */
+@media (max-width: 1024px) {
+    .content {
+        flex-direction: column;
+    }
+    .challenges-table {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .image-content {
+        width: 100%;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    th, td {
+        padding: 8px;
+        font-size: 14px;
+    }
+    .challenge-icon, .solution-icon {
+        font-size: 14px;
+    }
+    .tag {
+        font-size: 11px;
+        padding: 2px 6px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="background-pattern"></div>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://imgur.com/9k6VVDF.png" alt="Vahdat Nori Logo">
+            </div>
+            <div class="logo-name">Vahdat Nori<br>09197494596</div>
+        </div>
+        <div class="header">
+            <h1 class="title">چالش‌ها و راهکارها</h1>
+        </div>
+        <div class="content">
+            <div class="challenges-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="45%">چالش</th>
+                            <th width="55%">راهکار پیشنهادی</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="challenge-card">
+                                <div class="challenge-name">
+                                    <i class="fas fa-plug challenge-icon"></i>
+                                    یکپارچه‌سازی داده‌ها
+                                </div>
+                            </td>
+                            <td class="solution-card">
+                                <div class="solution-name">
+                                    <i class="fas fa-code-branch solution-icon"></i>
+                                    استفاده از <span class="highlight">API</span> برای اتصال به ERP/SCADA/IoT
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="challenge-card">
+                                <div class="challenge-name">
+                                    <i class="fas fa-wifi challenge-icon"></i>
+                                    کار آفلاین
+                                </div>
+                            </td>
+                            <td class="solution-card">
+                                <div class="solution-name">
+                                    <i class="fas fa-sync solution-icon"></i>
+                                    توسعه ماژول همگام‌سازی هوشمند (ذخیره محلی + ارسال پس از اتصال)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="challenge-card">
+                                <div class="challenge-name">
+                                    <i class="fas fa-shield-alt challenge-icon"></i>
+                                    امنیت داده‌ها
+                                </div>
+                            </td>
+                            <td class="solution-card">
+                                <div class="solution-name">
+                                    <i class="fas fa-lock solution-icon"></i>
+                                    پیاده‌سازی <span class="highlight">ISO 27001</span>، رمزنگاری انتها به انتها، احراز هویت 2FA
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="challenge-card">
+                                <div class="challenge-name">
+                                    <i class="fas fa-users challenge-icon"></i>
+                                    مقاومت کاربران
+                                </div>
+                            </td>
+                            <td class="solution-card">
+                                <div class="solution-name">
+                                    <i class="fas fa-mouse-pointer solution-icon"></i>
+                                    طراحی رابط کاربری ساده، آموزش مزایا (مثلاً کاهش حوادث)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="challenge-card">
+                                <div class="challenge-name">
+                                    <i class="fas fa-coins challenge-icon"></i>
+                                    هزینه پیاده‌سازی
+                                </div>
+                            </td>
+                            <td class="solution-card">
+                                <div class="solution-name">
+                                    <i class="fas fa-th solution-icon"></i>
+                                    توسعه <span class="highlight">ماژولار</span> (اولویت‌بندی: نگهداری → HSE → انرژی)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="challenge-card">
+                                <div class="challenge-name">
+                                    <i class="fas fa-chart-line challenge-icon"></i>
+                                    پیچیدگی تحلیل‌ها
+                                </div>
+                            </td>
+                            <td class="solution-card">
+                                <div class="solution-name">
+                                    <i class="fas fa-chart-bar solution-icon"></i>
+                                    استفاده از پلتفرم‌های <span class="highlight">BI</span> (مثل Power BI) برای تحلیل‌های ترکیبی
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="image-content">
+                <img src="https://sfile.chatglm.cn/images-ppt/3d73d139253f.png" alt="فرآیند حل مسئله در نگهداری صنعتی">
+                <div class="image-caption">فرآیند حل مسئله و مدیریت چالش‌های پیاده‌سازی سیستم</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

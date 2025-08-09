@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مثال کاربردی: تحلیل جامع عملکرد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+       * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    font-family: 'Vazirmatn', sans-serif;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f8ff;
+}
+.slide {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f8ff 0%, #e1eeff 100%);
+    color: #002054;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    padding: clamp(20px, 3vh, 40px) clamp(20px, 5vw, 70px) clamp(10px, 1.5vh, 20px);
+    position: relative;
+}
+.title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: #002054;
+    position: relative;
+    display: inline-block;
+    margin-bottom: clamp(5px, 1vh, 10px);
+}
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+    width: clamp(50px, 8vw, 100px);
+    height: clamp(3px, 0.5vw, 5px);
+    background: linear-gradient(90deg, #4dabf7, #002054);
+    border-radius: 3px;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: clamp(10px, 1.5vh, 20px) clamp(20px, 5vw, 70px) clamp(20px, 3vh, 40px);
+    min-height: 0;
+}
+.dashboard-container {
+    display: flex;
+    flex-grow: 1;
+    gap: clamp(15px, 2vw, 25px);
+    min-height: 0;
+}
+.dashboard-image {
+    flex: 1;
+    background-color: white;
+    border-radius: clamp(8px, 1vw, 12px);
+    padding: clamp(12px, 1.5vw, 20px);
+    box-shadow: 0 clamp(3px, 0.5vw, 5px) clamp(10px, 1vw, 15px) rgba(0, 32, 84, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    min-height: 0;
+}
+.dashboard-image:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 clamp(5px, 0.8vw, 8px) clamp(15px, 1.5vw, 25px) rgba(0, 32, 84, 0.12);
+}
+.dashboard-img {
+    max-width: 100%;
+    max-height: clamp(200px, 45vh, 400px);
+    border-radius: clamp(6px, 0.8vw, 8px);
+    box-shadow: 0 clamp(2px, 0.3vw, 2px) clamp(6px, 0.8vw, 8px) rgba(0, 32, 84, 0.1);
+    transition: all 0.3s ease;
+    object-fit: contain;
+}
+.dashboard-img:hover {
+    transform: scale(1.02);
+}
+.components {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.5vw, 15px);
+    min-height: 0;
+    overflow-y: auto;
+}
+.components::-webkit-scrollbar {
+    width: 6px;
+}
+.components::-webkit-scrollbar-track {
+    background: rgba(77, 171, 247, 0.1);
+    border-radius: 10px;
+}
+.components::-webkit-scrollbar-thumb {
+    background: rgba(77, 171, 247, 0.3);
+    border-radius: 10px;
+}
+.components::-webkit-scrollbar-thumb:hover {
+    background: rgba(77, 171, 247, 0.5);
+}
+.component-card {
+    background-color: white;
+    border-radius: clamp(8px, 1vw, 12px);
+    padding: clamp(10px, 1.2vw, 15px);
+    box-shadow: 0 clamp(3px, 0.5vw, 5px) clamp(10px, 1vw, 15px) rgba(0, 32, 84, 0.08);
+    display: flex;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.component-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 clamp(5px, 0.8vw, 8px) clamp(15px, 1.5vw, 25px) rgba(0, 32, 84, 0.12);
+}
+.component-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #4dabf7;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+.component-card:hover::before {
+    transform: scaleY(1);
+}
+.component-icon {
+    width: clamp(32px, 4vw, 40px);
+    height: clamp(32px, 4vw, 40px);
+    background-color: rgba(77, 171, 247, 0.15);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: clamp(8px, 1vw, 12px);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+.component-card:hover .component-icon {
+    background-color: rgba(77, 171, 247, 0.25);
+}
+.component-icon i {
+    font-size: clamp(16px, 1.8vw, 20px);
+    color: #4dabf7;
+}
+.component-content {
+    flex-grow: 1;
+}
+.component-title {
+    font-size: clamp(14px, 1.8vw, 18px);
+    font-weight: 600;
+    color: #002054;
+    margin-bottom: clamp(4px, 0.5vw, 5px);
+}
+.component-desc {
+    font-size: clamp(12px, 1.5vw, 16px);
+    color: #444;
+    line-height: 1.4;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.highlight {
+    color: #4dabf7;
+    font-weight: 600;
+}
+.logo-container {
+    position: absolute;
+    top: clamp(10px, 1.5vh, 20px);
+    left: clamp(20px, 4vw, 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo {
+    width: clamp(30px, 4vw, 50px);
+    height: clamp(30px, 4vw, 50px);
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 32, 84, 0.2);
+    overflow: hidden;
+}
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.logo-name {
+    margin-top: 3px;
+    font-size: clamp(8px, 1vw, 14px);
+    font-weight: 500;
+    color: #002054;
+    text-align: center;
+    line-height: 1.2;
+}
+.background-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(77, 171, 247, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: -1;
+}
+.manager-insight {
+    background: linear-gradient(135deg, rgba(77, 171, 247, 0.1) 0%, rgba(0, 32, 84, 0.05) 100%);
+    border-radius: clamp(8px, 1vw, 12px);
+    padding: clamp(12px, 1.5vw, 15px) clamp(15px, 2vw, 20px);
+    margin-top: clamp(12px, 1.5vw, 20px);
+    border-right: 3px solid #4dabf7;
+    box-shadow: 0 clamp(3px, 0.5vw, 5px) clamp(10px, 1vw, 15px) rgba(0, 32, 84, 0.08);
+    transition: all 0.3s ease;
+}
+.manager-insight:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 clamp(5px, 0.8vw, 8px) clamp(15px, 1.5vw, 25px) rgba(0, 32, 84, 0.12);
+}
+.insight-title {
+    font-size: clamp(16px, 1.8vw, 20px);
+    font-weight: 600;
+    color: #002054;
+    margin-bottom: clamp(8px, 1vw, 10px);
+    display: flex;
+    align-items: center;
+}
+.insight-title i {
+    color: #4dabf7;
+    margin-left: clamp(8px, 1vw, 10px);
+    font-size: clamp(16px, 1.8vw, 20px);
+}
+.insight-content {
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: #444;
+    line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(4px, 0.6vw, 6px);
+    margin-top: clamp(6px, 0.8vw, 8px);
+}
+.tag {
+    background-color: rgba(77, 171, 247, 0.1);
+    color: #002054;
+    padding: clamp(2px, 0.4vw, 3px) clamp(5px, 0.8vw, 8px);
+    border-radius: 20px;
+    font-size: clamp(10px, 0.9vw, 13px);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.tag:hover {
+    background-color: rgba(77, 171, 247, 0.2);
+    transform: scale(1.05);
+}
+
+/* برای اندازه‌های کوچکتر */
+@media (max-width: 1024px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+    .dashboard-image {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .components {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .component-card {
+        padding: 10px;
+    }
+    .component-icon {
+        width: 32px;
+        height: 32px;
+        margin-left: 10px;
+    }
+    .component-icon i {
+        font-size: 16px;
+    }
+    .component-title {
+        font-size: 14px;
+    }
+    .component-desc {
+        font-size: 12px;
+    }
+    .insight-title {
+        font-size: 16px;
+    }
+    .insight-content {
+        font-size: 14px;
+    }
+    .manager-insight {
+        padding: 12px 15px;
+        margin-top: 15px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="background-pattern"></div>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://imgur.com/9k6VVDF.png" alt="Vahdat Nori Logo">
+            </div>
+            <div class="logo-name">Vahdat Nori<br>09197494596</div>
+        </div>
+        <div class="header">
+            <h1 class="title">مثال کاربردی: تحلیل جامع عملکرد</h1>
+        </div>
+        <div class="content">
+            <div class="dashboard-container">
+                <div class="dashboard-image">
+                    <img src="https://sfile.chatglm.cn/images-ppt/d5d74bcab6c4.png" alt="داشبورد تحلیل جامع عملکرد" class="dashboard-img">
+                </div>
+                
+                <div class="components">
+                    <div class="component-card">
+                        <div class="component-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="component-content">
+                            <div class="component-title">وضعیت سلامت دارایی‌ها</div>
+                            <div class="component-desc">
+                                نمایش <span class="highlight">رنگی</span> وضعیت تجهیزات (سبز: عالی، زرد: نیاز به توجه، قرمز: بحرانی)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="component-content">
+                            <div class="component-title">روندهای هزینه تعمیرات</div>
+                            <div class="component-desc">
+                                تحلیل <span class="highlight">ماهانه/فصلی</span> هزینه‌ها و مقایسه با بودجه مصوب
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="component-content">
+                            <div class="component-title">توزیع دستورکارها</div>
+                            <div class="component-desc">
+                                طبقه‌بندی بر اساس <span class="highlight">نوع و اولویت</span> برای مدیریت بهتر منابع
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="component-content">
+                            <div class="component-title">الگوهای مصرف انرژی</div>
+                            <div class="component-desc">
+                                تحلیل مصرف بر اساس <span class="highlight">تجهیزات و زمان</span> برای شناسایی ناهنجاری‌ها
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <div class="component-content">
+                            <div class="component-title">شاخص‌های کلیدی عملکرد</div>
+                            <div class="component-desc">
+                                نمایش <span class="highlight">اهداف و مقادیر واقعی</span> KPIها برای ارزیابی عملکرد
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="manager-insight">
+                <div class="insight-title">
+                    <i class="fas fa-lightbulb"></i>
+                    بینش مدیریتی
+                </div>
+                <div class="insight-content">
+                    مدیران با تحلیل این داشبورد می‌توانند الگوهای خرابی را شناسایی کرده، منابع را بهینه تخصیص دهند و استراتژی‌های پیشگیرانه را برای کاهش توقف‌ها و هزینه‌ها طراحی کنند.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
